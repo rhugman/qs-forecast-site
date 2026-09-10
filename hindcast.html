@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hindcast explorer - Querença-Silves groundwater outlook</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body data-page="hindcast">
+<header class="top"><div class="inner">
+  <a class="brand" href="index.html">Querença-Silves groundwater outlook</a>
+  <nav><a href="index.html">Overview</a><a href="weather.html">Weather</a><span class="nav-group"><span class="nav-label">Verification</span><a href="skill.html">Skill</a><a href="hindcast.html" class="current">Hindcast</a></span><a href="methods.html">Methods and data</a></nav>
+</div></header>
+<main>
+  <h1 id="hc-title">Hindcast explorer</h1>
+  <div id="hc-badges"></div>
+  <p class="lede">Any past origin shown as if it were today's forecast: the dips and the model simulation before it, the band the
+     model would have issued from the last dip available at the origin, and what actually happened. Origins 1 April (drawdown to
+     30 September) and 1 October (recovery to 31 March), 2001-2025, with the weather members resampled from the observed years
+     (ESP) and the parameters refit on the dips before each origin.</p>
+  <p class="note" id="hc-stamp"></p>
+  <div id="status" hidden></div>
+  <div id="hc-body">
+    <p class="note" id="hc-summary"></p>
+    <div class="controls">
+      <label>Site <select id="hc-site"></select></label>
+      <label>Origin <select id="hc-origin"></select></label>
+      <span class="seg" role="group" aria-label="Step through the origins">
+        <button class="small" id="hc-prev" title="Previous origin (left arrow key)">&larr; previous</button>
+        <button class="small" id="hc-next" title="Next origin (right arrow key)">next &rarr;</button>
+      </span>
+      <span class="seg" id="hc-range" role="group" aria-label="Record shown before the origin">
+        <button class="small" data-range="1y">1 year before</button>
+        <button class="small" data-range="3y">3 years before</button>
+      </span>
+    </div>
+    <div class="controls">
+      <label><input type="checkbox" id="truth-toggle" checked> What actually happened (dips after the origin)</label>
+      <label><input type="checkbox" id="known-toggle" checked> Known-forcing median (the weather that actually came)</label>
+      <label><input type="checkbox" id="hc-clim-toggle" checked> Head climatology band</label>
+      <label><input type="checkbox" id="pp-toggle" checked> 1 April conditional correction (docs/plan.md step 16 d)</label>
+      <label><input type="checkbox" id="members-note-toggle"> Members note</label>
+    </div>
+    <p class="note" id="hc-members-note" hidden></p>
+    <div id="hc-fan" class="plot tall"></div>
+    <p class="note" id="hc-note"></p>
+
+    <h2>Scores for this origin</h2>
+    <div class="cards" id="hc-scores"></div>
+    <p class="note">CRPS in metres, averaged over the dips inside the window; CRPSS = 1 - CRPS / CRPS of the site's head climatology
+       (dips of the years before the origin within 15 days of the calendar day): above zero beats climatology, 1 is perfect.
+       Coverage is the fraction of those dips inside the band. The season-end dip is the one nearest origin + 183 days within 15 days.</p>
+
+    <h2>Season-end skill across the origins of this site</h2>
+    <p class="note">Season-end CRPSS vs head climatology per origin (1 April orange, 1 October blue); the selected origin is outlined.
+       Click a point to jump to that origin; the left and right arrow keys step through them.</p>
+    <div id="hc-strip" class="plot short"></div>
+    <p class="note" id="hc-links"></p>
+  </div>
+</main>
+<footer id="footer"></footer>
+</body>
+</html>

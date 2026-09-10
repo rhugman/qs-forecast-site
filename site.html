@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Well forecast - Querença-Silves groundwater outlook</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body data-page="site">
+<header class="top"><div class="inner">
+  <a class="brand" href="index.html">Querença-Silves groundwater outlook</a>
+  <nav><a href="index.html">Overview</a><a href="weather.html">Weather</a><span class="nav-group"><span class="nav-label">Verification</span><a href="skill.html">Skill</a><a href="hindcast.html">Hindcast</a></span><a href="methods.html">Methods and data</a></nav>
+</div></header>
+<main>
+  <p class="crumb"><a href="index.html">&larr; All wells</a></p>
+  <h1 id="site-title">loading</h1>
+  <div id="site-badges"></div>
+  <div id="status" hidden></div>
+  <ul id="site-list" hidden></ul>
+  <div id="site-body">
+    <div class="figures" id="site-cards"></div>
+
+    <div class="controls">
+      <span class="seg" id="fan-range" role="group" aria-label="Range">
+        <button class="small" data-range="1y">1 year</button>
+        <button class="small" data-range="3y">3 years</button>
+        <button class="small" data-range="full">Full record</button>
+      </span>
+      <label><input type="checkbox" id="clim-toggle"> Usual range for the time of year</label>
+      <span class="note">Bands: the 50 % and 90 % likely ranges over weather members, model parameters and the residual noise seeded at the
+        last measurement. Hover for values; drag to zoom; double-click to return.</span>
+    </div>
+    <div id="fan" class="plot tall"></div>
+    <p class="note" id="fan-note"></p>
+
+    <details class="tier" id="sec-scenarios">
+      <summary>Pumping scenarios <span class="sum-note">how the band moves under other irrigation and public-supply levels</span></summary>
+      <div class="body">
+        <div class="controls scenario" id="scenario-controls" hidden>
+          <span class="k">Pumping scenario</span>
+          <fieldset id="scenario-irrigation"><legend>Irrigation level</legend></fieldset>
+          <fieldset id="scenario-ada"><legend>Public supply (AdA)</legend></fieldset>
+        </div>
+        <p class="note" id="scenario-text"></p>
+      </div>
+    </details>
+
+    <details class="tier">
+      <summary>How well the model fits <span class="sum-note">measurement minus model, over the record</span></summary>
+      <div class="body">
+        <div id="residual" class="plot short"></div>
+        <p class="note" id="fit-text"></p>
+      </div>
+    </details>
+
+    <details class="tier">
+      <summary>Where the uncertainty comes from <span class="sum-note">weather, parameters, inputs, residual noise</span></summary>
+      <div class="body">
+        <p class="note">Share of the forecast variance by source along the horizon: weather members, model parameters, the
+           historic-input realisations, and the residual noise that grows from the last measurement.</p>
+        <div id="variance" class="plot short"></div>
+        <div id="variance-text"></div>
+      </div>
+    </details>
+
+    <details class="tier">
+      <summary>Season summary <span class="sum-note">quantiles at the season end, the horizon end and the extremes</span></summary>
+      <div class="body">
+        <div class="table-wrap"><table id="season-table"></table></div>
+        <p class="note">Metres above sea level. Quantiles of the pooled forecast distribution on the given day.</p>
+      </div>
+    </details>
+
+    <details class="tier">
+      <summary>Model and last measurement <span class="sum-note">structure, pumping term, correction, anchor</span></summary>
+      <div class="body two">
+        <div><h3>Model</h3><div id="spec"></div></div>
+        <div><h3>Last measurement</h3><div id="anchor"></div></div>
+      </div>
+    </details>
+
+    <details class="tier">
+      <summary>Provenance</summary>
+      <div class="body"><div class="prov" id="provenance"></div></div>
+    </details>
+
+    <p class="note">The weather members behind the band, their spread and the cumulative rain against past years are on the
+       <a href="weather.html">Weather</a> page.</p>
+    <p class="note" id="hindcast-line"><a id="hindcast-link" href="hindcast.html">Explore hindcasts for this site</a>: every past
+       1 April and 1 October origin since 2001 shown as a forecast next to what actually happened.</p>
+  </div>
+</main>
+<footer id="footer"></footer>
+</body>
+</html>

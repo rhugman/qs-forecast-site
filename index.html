@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Querença-Silves groundwater outlook</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body data-page="index">
+<header class="top"><div class="inner">
+  <a class="brand" href="index.html">Querença-Silves groundwater outlook</a>
+  <nav><a href="index.html" class="current">Overview</a><a href="weather.html">Weather</a><span class="nav-group"><span class="nav-label">Verification</span><a href="skill.html">Skill</a><a href="hindcast.html">Hindcast</a></span><a href="methods.html">Methods and data</a></nav>
+</div></header>
+<main>
+  <h1>Groundwater levels, the season ahead</h1>
+  <p class="status" id="status-line">loading</p>
+  <details class="about">
+    <summary>About this forecast <span class="sum-note">what it is, what drives it, what it is not</span></summary>
+    <div class="body">
+      <p class="lede">Probabilistic forecasts of the groundwater level at SNIRH monitoring wells of the Querença-Silves aquifer (Algarve).
+         One statistical model per well, fitted to the measured levels and driven by daily rain, evapotranspiration and pumping, run forward
+         on ensembles of ECMWF weather forecasts. Issued weekly; two seasons a year, 1 April to 30 September and 1 October to 31 March.</p>
+      <p class="note"><strong>Weather members:</strong> <span id="feed-line">loading</span>
+         <a href="weather.html">Members, spread and cumulative rain against past years.</a></p>
+      <p class="note"><strong>Forcing:</strong> <span id="gapfill-line">loading</span></p>
+      <p class="note"><strong>Verified wells</strong> passed a 25-year hindcast test against the well's own seasonal norm (see <a href="skill.html">Skill</a>);
+         the others are shown with the same forecast but carry no skill claim.</p>
+      <p class="disclaimer">Research demonstration, non-commercial and unofficial. The forecasts are probabilistic model output with
+         measurements that may be months old; they are not a decision product and carry no warranty.</p>
+    </div>
+  </details>
+  <div id="status" hidden></div>
+
+  <section class="overview">
+    <div class="pane map-pane">
+      <div id="map"></div>
+      <div class="legend" id="map-legend"></div>
+    </div>
+    <div class="pane selected-pane" id="selected">
+      <div class="sel-head">
+        <h2 id="sel-title">Choose a well on the map</h2>
+        <span class="chip none" id="sel-chip" hidden></span>
+        <span class="sub" id="sel-sub"></span>
+      </div>
+      <div class="figures" id="sel-figures"></div>
+      <div class="controls">
+        <span class="seg" id="fan-range" role="group" aria-label="Range">
+          <button class="small" data-range="1y">1 year</button>
+          <button class="small" data-range="3y">3 years</button>
+          <button class="small" data-range="full">Full record</button>
+        </span>
+        <span class="grow"></span>
+        <a id="sel-link" href="site.html" hidden>Open full details &rarr;</a>
+      </div>
+      <div id="fan" class="plot compact"><div class="sel-empty">Click a well on the map or in the list below.</div></div>
+      <p class="note" id="sel-note"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>All wells</h2>
+    <p class="note">Sorted from the lowest to the highest outlook. Click a row to show it above; the up and down arrow keys step through the list.
+       The outlook places the forecast median at the season end among the well's own past season-end levels.</p>
+    <div class="table-wrap">
+      <table id="site-table">
+        <thead><tr>
+          <th>Well</th><th>Area</th><th>Last measured</th>
+          <th class="num">Season end, median (m)</th><th class="num">Likely range, 90 % (m)</th><th>Outlook</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="note">Levels in metres above sea level. Wells marked "not yet verified" did not pass the hindcast test and carry no skill claim.</p>
+  </section>
+
+  <details>
+    <summary>Provenance of this issue</summary>
+    <div class="body"><div class="prov" id="provenance"></div></div>
+  </details>
+</main>
+<footer id="footer"></footer>
+</body>
+</html>
