@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather members - Querença-Silves groundwater outlook</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body data-page="weather">
+<header class="top"><div class="inner">
+  <a class="brand" href="index.html">Querença-Silves groundwater outlook</a>
+  <nav><a href="index.html">Overview</a><a href="weather.html" class="current">Weather</a><span class="nav-group"><span class="nav-label">Verification</span><a href="skill.html">Skill</a><a href="hindcast.html">Hindcast</a></span><a href="methods.html">Methods and data</a></nav>
+</div></header>
+<main>
+  <h1>Weather members driving the forecast</h1>
+  <p class="lede">Daily rain and reference evapotranspiration over the Querença-Silves domain: the observed series (ERA5-Land,
+     gap-filled to the day before issue) and the ECMWF ensemble members the head models are run on, EC46 for the first
+     46 days and SEAS5 beyond, paired member by member at the splice.</p>
+  <div id="status" hidden></div>
+  <div class="stamps">
+    <div><span class="k">Issue date</span><span class="v" id="issue-date">loading</span></div>
+    <div><span class="k">Members</span><span class="v" id="members-line">loading</span></div>
+    <div><span class="k">Splice (EC46 to SEAS5)</span><span class="v" id="splice-line">loading</span></div>
+    <div><span class="k">Correction</span><span class="v" id="correction-line">loading</span></div>
+  </div>
+  <p class="note" id="weather-summary"></p>
+  <div id="weather-body">
+    <div class="controls">
+      <span class="seg" id="weather-range" role="group" aria-label="Range">
+        <button class="small" data-range="6m">6 months</button>
+        <button class="small" data-range="2y">2 years</button>
+      </span>
+      <label><input type="checkbox" id="members-toggle" checked> Show the members</label>
+      <span class="note">Grey lines are the members; bands are the 50 % and 90 % central intervals across them, the blue line
+        their median. Filled observed days are marked: green from Open-Meteo ERA5 scaled to the domain series, orange from the
+        EC46 control run. Hover for the date and values.</span>
+    </div>
+
+    <h2>Rain</h2>
+    <div id="w-prec" class="plot tall"></div>
+
+    <h2>Reference evapotranspiration (ET0)</h2>
+    <div id="w-et0" class="plot tall"></div>
+
+    <h2>Cumulative rain from the issue date</h2>
+    <p class="note">Each member's rain summed from the issue date, against the same calendar window in every complete observed
+       year (grey: median and 5-95 % range). Above the grey band the ensemble is wetter than the record, below it drier.</p>
+    <div id="w-cum" class="plot tall"></div>
+    <div id="cum-text"></div>
+
+    <h2>Provenance</h2>
+    <div class="prov" id="provenance"></div>
+  </div>
+</main>
+<footer id="footer"></footer>
+</body>
+</html>

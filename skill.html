@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skill - Querença-Silves groundwater outlook</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<script src="app.js" defer></script>
+</head>
+<body data-page="skill">
+<header class="top"><div class="inner">
+  <a class="brand" href="index.html">Querença-Silves groundwater outlook</a>
+  <nav><a href="index.html">Overview</a><a href="weather.html">Weather</a><span class="nav-group"><span class="nav-label">Verification</span><a href="skill.html" class="current">Skill</a><a href="hindcast.html">Hindcast</a></span><a href="methods.html">Methods and data</a></nav>
+</div></header>
+<main>
+  <h1>Hindcast skill</h1>
+  <p class="lede">Walk-forward hindcast at every candidate site, origins 1 April and 1 October 2001-2025, parameters refit
+     before each origin, ESP weather members (resampled observed years) and the observed weather as the known-forcing
+     ceiling. Scores are against the site's own head climatology: CRPSS above zero means the forecast beats it.</p>
+  <p class="note" id="skill-stamp"></p>
+  <div id="status" hidden></div>
+  <div id="skill-body">
+    <p class="note"><strong>Gate for the verified label:</strong> <span id="gate-rule"></span></p>
+    <p class="note"><strong>Sources:</strong> <span id="skill-sources"></span></p>
+
+    <h2>Gate verdict</h2>
+    <div class="table-wrap">
+      <table id="roles-table">
+        <thead><tr>
+          <th>Site</th><th>Sector</th><th class="num">CRPSS Apr</th><th class="num">lower Apr</th>
+          <th class="num">CRPSS Oct</th><th class="num">lower Oct</th><th class="num">Trajectory cov. 90</th><th>Role</th><th>Verdict</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h2>Where the forecast beats climatology, by lead</h2>
+    <p class="note">One statement per origin and lead bin, ESP members with a fresh anchor. Leads where no site's 90 %
+       bootstrap lower bound is above zero are marked in red: there the forecast should be read as climatology.</p>
+    <div id="statements"></div>
+
+    <h2>Skill by lead, coverage and anchor age</h2>
+    <div class="controls">
+      <span class="seg" id="origin-switch" role="group" aria-label="Origin">
+        <button class="small" data-range="4">1 April origin</button>
+        <button class="small" data-range="10">1 October origin</button>
+      </span>
+      <span class="note">Per site: west blue, east red, uncertain sector orange; verified sites solid. The black line is the median over
+        sites; dashed, the same with the observed weather (the ceiling the weather feed cannot exceed).</span>
+    </div>
+    <div class="origin-panel" data-origin="4">
+      <h3>CRPSS by lead month</h3>
+      <div id="crpss-4" class="plot tall"></div>
+      <h3>Coverage of the 90 % band by lead month</h3>
+      <p class="note">Fraction of dips inside the p05-p95 band; nominal 0.90 in red, the gate band shaded.</p>
+      <div id="cov-4" class="plot tall"></div>
+      <h3>Anchor age</h3>
+      <p class="note">SNIRH publishes dips one to two months late. Season-end CRPSS when the last dip available at the origin
+         is 0, 1, 2 or 3 months old.</p>
+      <div id="age-4" class="plot tall"></div>
+    </div>
+    <div class="origin-panel" data-origin="10" hidden>
+      <h3>CRPSS by lead month</h3>
+      <div id="crpss-10" class="plot tall"></div>
+      <h3>Coverage of the 90 % band by lead month</h3>
+      <p class="note">Fraction of dips inside the p05-p95 band; nominal 0.90 in red, the gate band shaded.</p>
+      <div id="cov-10" class="plot tall"></div>
+      <h3>Anchor age</h3>
+      <p class="note">SNIRH publishes dips one to two months late. Season-end CRPSS when the last dip available at the origin
+         is 0, 1, 2 or 3 months old.</p>
+      <div id="age-10" class="plot tall"></div>
+    </div>
+
+    <section id="pp-section" hidden>
+      <h2>The 1 April conditional correction</h2>
+      <p class="note">A leave-one-origin-year-out regression of the season-end error, and of its spread, on the state
+         known at the origin (the winter's rain, the Arade storage, the footprint level, the anchor's own residual and
+         percentile). It is applied to the published band at the western net-pumping sites for an issue between
+         1 April and the season end, and nowhere else. The gate above is on the uncorrected band.</p>
+      <div id="pp-body"></div>
+    </section>
+
+    <h2>Headline scores per site and origin</h2>
+    <div class="table-wrap">
+      <table id="headline-table">
+        <thead><tr>
+          <th>Site</th><th>Sector</th><th>Origin</th><th class="num">Years</th>
+          <th class="num">Season-end CRPSS</th><th class="num">90 % interval</th><th class="num">Season-end cov. 90</th>
+          <th class="num">Season-end MAE (m)</th><th class="num">Known-forcing CRPSS</th><th class="num">CRPSS vs persistence</th>
+          <th class="num">Trajectory CRPSS</th><th class="num">Trajectory cov. 90</th><th class="num">Season-extreme CRPSS</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+<footer id="footer"></footer>
+</body>
+</html>
